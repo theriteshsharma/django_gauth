@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import django_gauth.views
+
 urlpatterns = [
+    path('admin/google/login', django_gauth.views.google_login),
+    path('admin/google/callback', django_gauth.views.google_callback),
     path('admin/', admin.site.urls),
 ]
