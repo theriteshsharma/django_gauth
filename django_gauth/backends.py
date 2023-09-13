@@ -1,6 +1,5 @@
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
-from decouple import config
 import requests
 from django_gauth import constants
 
@@ -18,8 +17,8 @@ class GoogleAuthBackend(BaseBackend):
 
         response = requests.post('https://oauth2.googleapis.com/token', data={
             "code": code,
-            "client_id": config('GOOGLE_CLIENT_ID'),
-            'client_secret': config("GOOGLE_CLIENT_SECRET"),
+            "client_id": constants.GOOGLE_CLIENT_ID,
+            'client_secret': constants.GOOGLE_CLIENT_SECRET,
             "redirect_uri": constants.GOOGLE_REDIRECT_URI,
             "grant_type": "authorization_code"
         })
