@@ -47,12 +47,4 @@ class GoogleAuthBackend(BaseBackend):
                     user = UserModel.objects.get(username=email)
                     return user
                 except UserModel.DoesNotExist:
-                    # Create User if Does not Exist
-                    """
-                    Set Custom Password using UserMode.set_password(password)
-                    to let user login using id and password
-                    """
-                    return UserModel.objects.create(username=email, is_active=True, is_staff=True, email=email)
-            else:
-                return None
-        return None
+                    return None

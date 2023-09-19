@@ -1,7 +1,9 @@
 from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect
 from . import constants
 from django.contrib.auth import authenticate, login
 from .backends import GoogleAuthBackend
+from django.contrib import messages
 # Create your views here.
 
 def google_login(request):
@@ -10,14 +12,15 @@ def google_login(request):
 
 def google_callback(request):
     if 'error' in request.GET:
-        return HttpResponseRedirect('/admin')
+        return redirect('admin:index')
 
     if 'code' in request.GET:
         user = authenticate(request, code=request.GET.get('code'), backend=GoogleAuthBackend)
         if user:
             login(request, user=user)
-
-        return HttpResponseRedirect('/admin')
+        else:
+            messages.error(request, "You are not Authorized to Login ")
+        return redirect('admin:index')
 
 
 
